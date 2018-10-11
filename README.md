@@ -13,7 +13,7 @@ Notes can have any number of tags, and searches can be made by specifying any co
 
 > eggdrop quizbot bugfix
 
-To run `tagpad.tcl` you need TCL/Tk, which is usually preinstalled on Mac and Linux. An excellent Windows version is freely available from [ActiveState]("http://www.activestate.com/tcl]ActiveState).
+To run `tagpad.tcl` you need TCL/Tk, which is usually preinstalled on Mac and Linux. An excellent Windows version is freely available from [ActiveState](http://www.activestate.com/tcl).
 
 
 During the first start-up, the application creates a file named `.tagpad.db` in the current user's home directory. This is an SQLite database file containing the application's notes and tags.
