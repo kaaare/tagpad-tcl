@@ -1,6 +1,5 @@
 TagPad
-
-------
+======
 
 A (very) minimal application for storing and finding notes, based on a tagging system. In other words: Windows Notepad but with tags.
 
