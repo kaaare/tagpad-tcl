@@ -156,6 +156,7 @@ proc opennote {} {
         
         db close
     }
+    
     proc loadnote {} {
         upvar ids ids
         sqlite3 db .tagpad.db
