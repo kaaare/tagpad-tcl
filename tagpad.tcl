@@ -13,7 +13,7 @@ package require sqlite3
 wm title . "TagPad"
 wm geometry . 1500x1000
 
-# confirm before destroying app window if unsaved changes:
+# confirm before destroying app window if unsaved changes
 wm protocol . WM_DELETE_WINDOW {
     if [confirm] { exit }
 }
@@ -53,13 +53,13 @@ if ![file exists .tagpad.db] {
                     PRIMARY KEY (name, notesid)
                 )}
         db close
-        focus -force . ;# Windows quirk
+        focus -force .   ;# Windows quirk
     } else {
       exit;
     }
 }
 
-focus -force . ;# Windows quirk
+focus -force .   ;# Windows quirk
 
 bind . <Alt-x> quit
 
@@ -76,7 +76,7 @@ proc savenote {} {
     set note [.note get 1.0 {end -1 chars}]
     sqlite3 db .tagpad.db
 
-    if {$::id == ""} { ;# if no id is given to the note it is not yet saved
+    if {$::id == ""} { ;# if no id is given to the note, it is not yet saved
         db eval {INSERT INTO notes(note) VALUES($note)}
         set ::id [db last_insert_rowid]
     } else {
@@ -133,8 +133,9 @@ proc opennote {} {
     proc searchnotes {} {
         upvar notes notes ids ids
         set notes ""
+        # get all note ids from database that are linked to by all the $tags
         set tags [split [.opennote.top.searchtags get]]
-        #get all note ids from database that are linked to by all the $tags
+
         sqlite3 db .tagpad.db
 
         # construct query
@@ -143,19 +144,15 @@ proc opennote {} {
             append query " id IN (SELECT notesid FROM tags WHERE name='[lindex $tags $i]')"
             if { $i != [expr [llength $tags] - 1]} { append query " AND" }
         }
-        #puts $query ;# TODO: remove
         
         # execute
         set tuples [db eval $query]
-        #puts $tuples ;# TODO: remove
         set ids {}
         set notes {}
         foreach {id note} $tuples {
             lappend ids $id
             lappend notes [regsub -all {\n} $note { }]
         }
-        #puts $ids ;# TODO: remove
-        #puts $notes ;# TODO: remove
         
         db close
     }
